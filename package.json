@@ -11,7 +11,8 @@
     "start": "node build/",
     "start:dev": "NODE_ENV=development webpack",
     "run:dev": "NODE_ENV=development nodemon build/index.js",
-    "test": "jest"
+    "test": "jest",
+    "doc": "typedoc --out docs"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
@@ -29,6 +30,7 @@
     "test": "^0.6.0",
     "ts-jest": "^26.0.0",
     "ts-loader": "^7.0.5",
+    "typedoc": "^0.17.7",
     "typescript": "^3.9.3",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
