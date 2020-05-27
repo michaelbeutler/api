@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 const router: express.IRouter = express.Router();
 
 router.get("/", (req: express.Request, res: express.Response) => {
-  return res.status(200).json({ status: 200, message: "OK" });
+  return res.status(200).json({ status: 200, message: "ok" });
 });
 
 router.post("/login", (req: express.Request, res: express.Response) => {
@@ -38,7 +38,7 @@ router.post("/login", (req: express.Request, res: express.Response) => {
 
       return res
         .status(200)
-        .json({ status: 200, message: "login success", payload: { token } });
+        .json({ status: 200, message: "login success", token });
     }
     return res.status(401).json({
       status: 401,

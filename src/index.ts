@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import helmet from "helmet";
 
 import indexRoute from "./routes";
+import todosRoute from "./routes/todos";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", indexRoute);
+app.use("/todos", todosRoute);
 
 app.all("*", (req: express.Request, res: express.Response) => {
   return res.status(404).json({ status: 404, message: "not found" });
