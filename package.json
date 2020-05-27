@@ -7,7 +7,8 @@
   "author": "MichiBeutler <michael.beutler@gibmit.ch>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack",
+    "start": "node build/",
     "start:dev": "NODE_ENV=development webpack",
     "run:dev": "NODE_ENV=development nodemon build/index.js",
     "test": "jest"
