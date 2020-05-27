@@ -65,7 +65,7 @@ describe("app", () => {
       .send({ email: "test@example.com", password: "myTestPassword" });
     expect(res.status).toBe(200);
     expect(res.body).toHaveProperty("message");
-    expect(res.body.payload).toHaveProperty("token");
+    expect(res.body).toHaveProperty("token");
     done();
   });
 });
