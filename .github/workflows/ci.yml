@@ -12,5 +12,5 @@ jobs:
         run: yarn build
       - name: Test
         run: yarn test --watchAll=false
-          env:
-            JWT_TOKEN: secret
+        env:
+          JWT_TOKEN: secret
