@@ -15,14 +15,14 @@ jobs:
       dev:
         image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MySqlRootPassword }}
+          MYSQL_ROOT_PASSWORD: root
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
     steps:
       - name: Verify MySQL connection from container
         run: |
           apt-get update
           apt-get install -y mysql-client
-          mysql --host dev -uroot -p${{ secrets.MySqlRootPassword }} -e "SHOW DATABASES"
+          mysql --host dev -uroot -proot -e "SHOW DATABASES"
       - uses: actions/checkout@v1
       - name: Install Dependencies
         run: yarn
@@ -33,5 +33,5 @@ jobs:
         env:
           JWT_TOKEN: secret
           MYSQL_USER: root
-          MYSQL_PASSWORD: ${{ secrets.MySqlRootPassword }}
+          MYSQL_PASSWORD: root
           MYSQL_DATABASE: dev
