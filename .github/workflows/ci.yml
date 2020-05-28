@@ -27,6 +27,10 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v1
 
+      - name: Setup Yarn
+        run: |
+          npm install -g yarn
+
       - name: Checkout repository
         uses: actions/checkout@v1
 
