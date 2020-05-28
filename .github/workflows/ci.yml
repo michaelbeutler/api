@@ -4,11 +4,25 @@ on:
     paths:
       - "**.js"
       - "**.ts"
+      - "**.yml"
+      - "**.json"
 jobs:
   buildAndTest:
     name: Build and Test
     runs-on: ubuntu-latest
+    container: ubuntu
+    services:
+      dev:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MySqlRootPassword }}
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
     steps:
+      - name: Verify MySQL connection from container
+        run: |
+          apt-get update
+          apt-get install -y mysql-client
+          mysql --host dev -uroot -p${{ secrets.MySqlRootPassword }} -e "SHOW DATABASES"
       - uses: actions/checkout@v1
       - name: Install Dependencies
         run: yarn
@@ -19,5 +33,5 @@ jobs:
         env:
           JWT_TOKEN: secret
           MYSQL_USER: root
-          MYSQL_PASSWORD: root
+          MYSQL_PASSWORD: ${{ secrets.MySqlRootPassword }}
           MYSQL_DATABASE: dev
