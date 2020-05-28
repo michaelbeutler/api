@@ -1,16 +1,29 @@
 name: CI
-on: [push]
-jobs:
-  buildAndTest:
-    name: Build and Test
-    runs-on: ubuntu-latest    
-    steps:
-      - uses: actions/checkout@v1
-      - name: Install Dependencies
-        run: yarn
-      - name: Build
-        run: yarn build
-      - name: Test
-        run: yarn test --watchAll=false
-        env:
-          JWT_TOKEN: secret
+on:
+  push:
+    paths:
+      - "**.js"
+      - "**.ts"
+  jobs:
+    buildAndTest:
+      name: Build and Test
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v1
+        - name: Install Dependencies
+          run: yarn
+        - name: Build
+          run: yarn build
+        - uses: mirromutth/mysql-action@v1.1
+          with:
+            mysql database: 'dev'
+            mysql root password: ${{ secrets.RootPassword }}
+            mysql user: 'dev'
+            mysql password: ${{ secrets.DatabasePassword }}
+        - name: Test
+          run: yarn test --watchAll=false
+          env:
+            JWT_TOKEN: secret
+            MYSQL_USER: dev
+            MYSQL_PASSWORD: ${{ secrets.DatabasePassword }}
+            MYSQL_DATABASE: dev
