@@ -11,17 +11,18 @@ describe("todo", () => {
   beforeAll(async (done: jest.DoneCallback) => {
     try {
       await dbc.connect();
-      dbc.query(
-        "INSERT INTO todos SET ?",
-        { id: 1, text: "test", done: false },
-        () => {
-          /**
-           * Create database for testing.
-           */
-          dbc.query(String(query));
-          done();
-        }
-      );
+      /**
+       * Create database for testing.
+       */
+      dbc.query(String(query), () => {
+        dbc.query(
+          "INSERT INTO todos SET ?",
+          { id: 1, text: "test", done: false },
+          () => {
+            done();
+          }
+        );
+      });
     } catch (err) {
       console.error(err);
       process.exit();
