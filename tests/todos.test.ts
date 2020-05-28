@@ -1,5 +1,6 @@
 import app, { dbc } from "../src/index";
 import supertest from "supertest";
+import mysql from "mysql";
 import { queries } from "../utils/todos.sql";
 
 describe("todo", () => {
@@ -8,19 +9,33 @@ describe("todo", () => {
   let token: string;
 
   beforeAll(async (done: jest.DoneCallback) => {
+    const sdbc = mysql.createConnection({
+      host: "localhost",
+      user: process.env.MYSQL_USER,
+      password: process.env.MYSQL_PASSWORD,
+    });
+
+    try {
+      await sdbc.connect();
+      /** Create database for testing. */
+      await sdbc.query(String(queries[0]));
+      await sdbc.end();
+    } catch (err) {
+      console.error(err);
+      process.exit();
+    }
+
     try {
       await dbc.connect();
-      /** Create database for testing. */
-      dbc.query(String(queries[0]), () => {
-        dbc.query(String(queries[1]), () => {
-          dbc.query(
-            "INSERT INTO todos SET ?",
-            { id: 1, text: "test", done: false },
-            () => {
-              done();
-            }
-          );
-        });
+      /** Create table for testing. */
+      dbc.query(String(queries[1]), () => {
+        dbc.query(
+          "INSERT INTO todos SET ?",
+          { id: 1, text: "test", done: false },
+          () => {
+            done();
+          }
+        );
       });
     } catch (err) {
       console.error(err);
