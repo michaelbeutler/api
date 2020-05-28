@@ -14,16 +14,10 @@ jobs:
         run: yarn
       - name: Build
         run: yarn build
-      - uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql database: "dev"
-          mysql root password: ${{ secrets.MySqlRootPassword }}
-          mysql user: "dev"
-          mysql password: ${{ secrets.MySqlRootPassword }}
       - name: Test
         run: yarn test --watchAll=false
         env:
           JWT_TOKEN: secret
           MYSQL_USER: root
-          MYSQL_PASSWORD: ${{ secrets.MySqlRootPassword }}
+          MYSQL_PASSWORD: root
           MYSQL_DATABASE: dev
