@@ -19,6 +19,8 @@ jobs:
         with:
           mysql database: "dev"
           mysql root password: ${{ secrets.MySqlRootPassword }}
+          mysql user: "dev"
+          mysql password: "dev"
       - name: Test
         run: yarn test --watchAll=false
         env:
