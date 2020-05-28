@@ -1,7 +1,5 @@
 import app, { dbc } from "../src/index";
 import supertest from "supertest";
-import mysql from "mysql";
-import { queries } from "../utils/todos.sql";
 
 describe("todo", () => {
   let request: supertest.SuperTest<supertest.Test>;
@@ -9,44 +7,19 @@ describe("todo", () => {
   let token: string;
 
   beforeAll(async (done: jest.DoneCallback) => {
-    const sdbc = mysql.createConnection({
-      host: process.env.MYSQL_HOST,
-      user: process.env.MYSQL_USER,
-      password: process.env.MYSQL_PASSWORD,
-    });
-
-    try {
-      await sdbc.connect();
-      /** Create database for testing. */
-      await sdbc.query(String(queries[0]), (err) => {
-        if (err) {
-          console.error(err);
-        }
-      });
-      await sdbc.end();
-    } catch (err) {
-      console.error(err);
-      process.exit();
-    }
-
     try {
       await dbc.connect();
-      /** Create table for testing. */
-      dbc.query(String(queries[1]), (err) => {
-        if (err) {
-          console.error(err);
-        }
-        dbc.query(
-          "INSERT INTO todos SET ?",
-          { id: 1, text: "test", done: false },
-          (err) => {
-            if (err) {
-              console.error(err);
-            }
-            done();
+      /** Create dummy insert for testing. */
+      dbc.query(
+        "INSERT INTO todos SET ?",
+        { id: 1, text: "test", done: false },
+        (err) => {
+          if (err) {
+            console.error(err);
           }
-        );
-      });
+          done();
+        }
+      );
     } catch (err) {
       console.error(err);
       process.exit();

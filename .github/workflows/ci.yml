@@ -22,7 +22,10 @@ jobs:
         run: |
           apt-get update
           apt-get install -y mysql-client
-          mysql --host mysql-dev -uroot -proot -e "SHOW DATABASES"
+          mysql --host mysql-dev -uroot -proot -e "CREATE DATABASE `dev`;"
+          mysql --host mysql-dev -uroot -proot -e "SHOW DATABASES;"
+          mysql --host mysql-dev -uroot -proot -e "CREATE TABLE IF NOT EXISTS `dev`.`todos` (  `id` INT NOT NULL AUTO_INCREMENT,  `text` VARCHAR(45) NOT NULL,  `done` TINYINT NOT NULL DEFAULT '0',  PRIMARY KEY (`id`));"
+          mysql --host mysql-dev -uroot -proot -e "USE `dev`; SHOW TABLES;"
 
       - name: Setup NodeJS
         uses: actions/setup-node@v1
