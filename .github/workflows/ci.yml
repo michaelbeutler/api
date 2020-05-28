@@ -4,7 +4,6 @@ on:
     paths:
       - "**.js"
       - "**.ts"
-      - "**.yml"
 jobs:
   buildAndTest:
     name: Build and Test
@@ -20,7 +19,7 @@ jobs:
           mysql database: "dev"
           mysql root password: ${{ secrets.MySqlRootPassword }}
           mysql user: "dev"
-          mysql password: "dev"
+          mysql password: ${{ secrets.MySqlRootPassword }}
       - name: Test
         run: yarn test --watchAll=false
         env:
