@@ -1,9 +1,20 @@
 import app from "../src/index";
 import supertest from "supertest";
+import { dbc } from "../src/index";
 
 describe("app", () => {
   let request: supertest.SuperTest<supertest.Test>;
   let server;
+
+  beforeAll(async (done: jest.DoneCallback) => {
+    try {
+      await dbc.connect();
+      done();
+    } catch (err) {
+      console.error(err);
+      process.exit();
+    }
+  });
 
   beforeEach((done: jest.DoneCallback) => {
     server = app.listen(done);
@@ -12,6 +23,11 @@ describe("app", () => {
 
   afterEach((done: jest.DoneCallback) => {
     server.close(done);
+  });
+
+  afterAll(async (done: jest.DoneCallback) => {
+    dbc.end();
+    done();
   });
 
   it("should return a successful response for GET /", async (done) => {
@@ -37,7 +53,6 @@ describe("app", () => {
   it("should return a 400 response for POST /login if no data provided", async (done) => {
     const res: supertest.Response = await request.post("/login");
     expect(res.status).toBe(400);
-    expect(res.body).toHaveProperty("message");
     done();
   });
 
@@ -46,7 +61,6 @@ describe("app", () => {
       .post("/login")
       .send({ email: "test@example.com" });
     expect(res.status).toBe(400);
-    expect(res.body).toHaveProperty("message");
     done();
   });
 
@@ -55,7 +69,6 @@ describe("app", () => {
       .post("/login")
       .send({ email: "test@example.com", password: "invalidPassword" });
     expect(res.status).toBe(401);
-    expect(res.body).toHaveProperty("message");
     done();
   });
 
@@ -64,8 +77,7 @@ describe("app", () => {
       .post("/login")
       .send({ email: "test@example.com", password: "myTestPassword" });
     expect(res.status).toBe(200);
-    expect(res.body).toHaveProperty("message");
-    expect(res.body).toHaveProperty("token");
+    expect(res.body.payload).toHaveProperty("token");
     done();
   });
 });

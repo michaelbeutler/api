@@ -18,7 +18,13 @@ import express from "express";
  * @returns 
  * If token is invalid or not given it returns a status, otherwise it runs the next function.
  * 
- * Example JSON Body: `{status: 403, message: "authentication failed (invalid token)"}`
+ * Example JSON Body: 
+ * ```json
+ * {
+ *    "status": 403, 
+ *    "message": "authentication failed (invalid token)" 
+ * }
+ * ```
  */
 export default function authenticate(
   req: express.Request & { user: any },
