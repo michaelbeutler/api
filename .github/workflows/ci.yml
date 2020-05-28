@@ -4,6 +4,7 @@ on:
     paths:
       - "**.js"
       - "**.ts"
+      - "**.yml"
 jobs:
   buildAndTest:
     name: Build and Test
@@ -17,13 +18,11 @@ jobs:
       - uses: mirromutth/mysql-action@v1.1
         with:
           mysql database: "dev"
-          mysql root password: ${{ secrets.RootPassword }}
-          mysql user: "dev"
-          mysql password: ${{ secrets.DatabasePassword }}
+          mysql root password: ${{ secrets.MySqlRootPassword }}
       - name: Test
         run: yarn test --watchAll=false
         env:
           JWT_TOKEN: secret
-          MYSQL_USER: dev
-          MYSQL_PASSWORD: ${{ secrets.DatabasePassword }}
+          MYSQL_USER: root
+          MYSQL_PASSWORD: ${{ secrets.MySqlRootPassword }}
           MYSQL_DATABASE: dev
