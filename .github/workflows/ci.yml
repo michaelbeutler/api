@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     container: ubuntu
     services:
-      mysql:
+      mysql-dev:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: root
@@ -22,7 +22,7 @@ jobs:
         run: |
           apt-get update
           apt-get install -y mysql-client
-          mysql --host mysql -uroot -proot -e "SHOW DATABASES"
+          mysql --host mysql-dev -uroot -proot -e "SHOW DATABASES"
 
       - name: Setup NodeJS
         uses: actions/setup-node@v1
@@ -44,6 +44,7 @@ jobs:
         run: yarn test --watchAll=false
         env:
           JWT_TOKEN: secret
+          MYSQL_HOST: mysql-dev
           MYSQL_USER: root
           MYSQL_PASSWORD: root
           MYSQL_DATABASE: dev
