@@ -11,7 +11,7 @@ module.exports = (env, args) => {
   if (process.env.NODE_ENV === "development") {
     usePlugins.push(
       new WebpackShellPlugin({
-        onBuildEnd: ["yarn run:dev"],
+        onBuildEnd: ["yarn doc","yarn run:dev"],
       })
     );
   }
