@@ -10,7 +10,7 @@ describe("todo", () => {
     try {
       await dbc.connect();
 
-      /** Create dummy insert for testing. */
+      /** Create dummy insert for testing. When CI is true. */
       if (process.env.CI) {
         dbc.query(
           "INSERT INTO todos SET ?",
