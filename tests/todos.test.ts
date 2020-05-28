@@ -1,7 +1,6 @@
 import app, { dbc } from "../src/index";
 import supertest from "supertest";
-import fs from "fs";
-import { query } from "../utils/todos.sql";
+import { queries } from "../utils/todos.sql";
 
 describe("todo", () => {
   let request: supertest.SuperTest<supertest.Test>;
@@ -12,14 +11,16 @@ describe("todo", () => {
     try {
       await dbc.connect();
       /** Create database for testing. */
-      dbc.query(String(query), () => {
-        dbc.query(
-          "INSERT INTO todos SET ?",
-          { id: 1, text: "test", done: false },
-          () => {
-            done();
-          }
-        );
+      dbc.query(String(queries[0]), () => {
+        dbc.query(String(queries[1]), () => {
+          dbc.query(
+            "INSERT INTO todos SET ?",
+            { id: 1, text: "test", done: false },
+            () => {
+              done();
+            }
+          );
+        });
       });
     } catch (err) {
       console.error(err);
