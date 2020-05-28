@@ -18,7 +18,11 @@ describe("todo", () => {
     try {
       await sdbc.connect();
       /** Create database for testing. */
-      await sdbc.query(String(queries[0]));
+      await sdbc.query(String(queries[0]), (err) => {
+        if (err) {
+          console.error(err);
+        }
+      });
       await sdbc.end();
     } catch (err) {
       console.error(err);
@@ -28,11 +32,17 @@ describe("todo", () => {
     try {
       await dbc.connect();
       /** Create table for testing. */
-      dbc.query(String(queries[1]), () => {
+      dbc.query(String(queries[1]), (err) => {
+        if (err) {
+          console.error(err);
+        }
         dbc.query(
           "INSERT INTO todos SET ?",
           { id: 1, text: "test", done: false },
-          () => {
+          (err) => {
+            if (err) {
+              console.error(err);
+            }
             done();
           }
         );
