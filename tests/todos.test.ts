@@ -9,17 +9,22 @@ describe("todo", () => {
   beforeAll(async (done: jest.DoneCallback) => {
     try {
       await dbc.connect();
+
       /** Create dummy insert for testing. */
-      dbc.query(
-        "INSERT INTO todos SET ?",
-        { id: 1, text: "test", done: false },
-        (err) => {
-          if (err) {
-            console.error(err);
+      if (process.env.CI) {
+        dbc.query(
+          "INSERT INTO todos SET ?",
+          { id: 1, text: "test", done: false },
+          (err) => {
+            if (err) {
+              console.error(err);
+            }
+            done();
           }
-          done();
-        }
-      );
+        );
+      } else {
+        done();
+      }
     } catch (err) {
       console.error(err);
       process.exit();
