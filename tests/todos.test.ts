@@ -11,9 +11,7 @@ describe("todo", () => {
   beforeAll(async (done: jest.DoneCallback) => {
     try {
       await dbc.connect();
-      /**
-       * Create database for testing.
-       */
+      /** Create database for testing. */
       dbc.query(String(query), () => {
         dbc.query(
           "INSERT INTO todos SET ?",
