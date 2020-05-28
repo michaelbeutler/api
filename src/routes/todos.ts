@@ -67,6 +67,7 @@ router.get(
       return res.status(404).json(resObj);
     }
 
+    /** Get todo item from model. */
     getById(id)
       .then((result: { todo: ITodo | null }) => {
         if (result.todo) {
