@@ -22,7 +22,7 @@ jobs:
         run: |
           apt-get update
           apt-get install -y mysql-client
-          mysql --host dev -uroot -proot -e "SHOW DATABASES"
+          mysql --host mysql -uroot -proot -e "SHOW DATABASES"
 
       - name: Setup NodeJS
         uses: actions/setup-node@v1
