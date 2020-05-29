@@ -89,7 +89,7 @@ export function getAll(
             id: result.id,
             text: result.text,
             isDone: results.done === 1,
-            url: `http://localhost:${process.env.PORT}/todos/${result.id}`,
+            url: `http://${process.env.ROOT_URI}/todos/${result.id}`,
           })),
         });
       }
@@ -114,7 +114,7 @@ export function getById(id: number): Promise<{ todo: ITodo | null }> {
               id: results[0].id,
               text: results[0].text,
               isDone: results[0].done === 1,
-              url: `http://localhost:${process.env.PORT}/todos/${results[0].id}`,
+              url: `http://${process.env.ROOT_URI}/todos/${results[0].id}`,
             },
           });
         }
