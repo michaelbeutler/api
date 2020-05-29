@@ -30,7 +30,7 @@ describe("app", () => {
     done();
   });
 
-  it("should return a successful response for GET /", async (done) => {
+  it("should return a 200 response for GET /", async (done) => {
     const res: supertest.Response = await request.get("/");
     expect(res.status).toBe(200);
     done();
@@ -72,7 +72,7 @@ describe("app", () => {
     done();
   });
 
-  it("should return a successful response for POST /login", async (done) => {
+  it("should return a 200 response for POST /login", async (done) => {
     const res: supertest.Response = await request
       .post("/login")
       .send({ email: "test@example.com", password: "myTestPassword" });
