@@ -41,7 +41,9 @@ const port: number = parseInt(process.env.PORT, 10) | 3000;
 app.use(helmet.xssFilter());
 
 /** Apply `morgan` middleware with `dev` option */
-app.use(morgan("dev"));
+if (process.env.NODE_ENV !== "test") {
+  app.use(morgan("dev"));
+}
 
 /** Apply `body-parser` middleware for `json` and `urlencoded` request bodies */
 app.use(bodyParser.json());

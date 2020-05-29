@@ -1,6 +1,13 @@
 import express from "express";
 import authenticate from "../middlewares/authenticate";
-import { ITodo, getAll, getById, add } from "../models/todo";
+import {
+  ITodo,
+  getAll,
+  getById,
+  add,
+  updateById,
+  deleteById,
+} from "../models/todo";
 import IResponse from "../interfaces/response";
 
 /**
@@ -57,7 +64,7 @@ router.get(
   "/:id",
   authenticate,
   (req: express.Request, res: express.Response) => {
-    let id: number = Number(req.params.id);
+    const id: number = Number(req.params.id);
 
     if (!id) {
       const resObj: IResponse = {
@@ -74,13 +81,12 @@ router.get(
           const resObj: IResponse = {
             status: 200,
             message: "ok",
-            payload: { todo: result.todo },
+            payload: { ...result.todo },
           };
           return res.status(200).json(resObj);
-        } else {
-          const resObj: IResponse = { status: 404, message: "not found" };
-          return res.status(404).json(resObj);
         }
+        const resObj: IResponse = { status: 404, message: "not found" };
+        return res.status(404).json(resObj);
       })
       .catch((error: any) => {
         const resObj: IResponse = {
@@ -131,38 +137,48 @@ router.put(
   "/:id",
   authenticate,
   (req: express.Request, res: express.Response) => {
-    const index = todos.findIndex((t) => t.id === parseInt(req.params.id, 10));
-    if (index === -1) {
-      return res.status(404).json({ status: 404, message: "not found" });
+    const id: number = Number(req.params.id);
+
+    if (!id) {
+      const resObj: IResponse = {
+        status: 404,
+        message: "not found: invalid id",
+      };
+      return res.status(404).json(resObj);
     }
 
     if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
-      return res
-        .status(400)
-        .json({ status: 400, message: "no content provided" });
+      const resObj: IResponse = { status: 400, message: "no content provided" };
+      return res.status(400).json(resObj);
     }
 
-    if (!req.body.text && !req.body.isDone === undefined) {
-      return res
-        .status(400)
-        .json({ status: 400, message: "no content provided" });
+    if (!req.body.text && !req.body.isDone) {
+      const resObj: IResponse = { status: 400, message: "no content provided" };
+      return res.status(400).json(resObj);
     }
 
-    if (req.body.isDone !== undefined) {
-      todos[index] = Object.assign({}, todos[index], {
-        isDone: req.body.isDone,
+    const text: string = req.body.text.trim();
+    const isDone: boolean = req.body.isDone === true;
+    updateById(id, text, isDone)
+      .then((result: { todo: ITodo | null }) => {
+        if (result.todo) {
+          const resObj: IResponse = {
+            status: 201,
+            message: "ok",
+            payload: result.todo,
+          };
+          return res.status(201).json(resObj);
+        }
+        const resObj: IResponse = { status: 404, message: "not found" };
+        return res.status(404).json(resObj);
+      })
+      .catch((error: any) => {
+        const resObj: IResponse = {
+          status: 500,
+          message: "internal server error: " + error,
+        };
+        return res.status(500).json(resObj);
       });
-    }
-
-    if (req.body.text !== undefined) {
-      todos[index] = Object.assign({}, todos[index], {
-        text: req.body.text.trim(),
-      });
-    }
-
-    return res
-      .status(201)
-      .json({ status: 201, message: "ok", todo: todos[index] });
   }
 );
 
@@ -170,12 +186,36 @@ router.delete(
   "/:id",
   authenticate,
   (req: express.Request, res: express.Response) => {
-    const index = todos.findIndex((t) => t.id === parseInt(req.params.id, 10));
-    if (index === -1) {
-      return res.status(404).json({ status: 404, message: "not found" });
+    const id: number = Number(req.params.id);
+
+    if (!id) {
+      const resObj: IResponse = {
+        status: 404,
+        message: "not found: invalid id",
+      };
+      return res.status(404).json(resObj);
     }
-    todos.splice(index, 1);
-    return res.status(201).json({ status: 201, message: "ok" });
+
+    deleteById(id)
+      .then((result: { todo: ITodo | null }) => {
+        if (result.todo) {
+          const resObj: IResponse = {
+            status: 201,
+            message: "ok",
+            payload: result.todo,
+          };
+          return res.status(201).json(resObj);
+        }
+        const resObj: IResponse = { status: 404, message: "not found" };
+        return res.status(404).json(resObj);
+      })
+      .catch((error: any) => {
+        const resObj: IResponse = {
+          status: 500,
+          message: "internal server error: " + error,
+        };
+        return res.status(500).json(resObj);
+      });
   }
 );
 

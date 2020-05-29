@@ -38,6 +38,7 @@ export interface ITodo {
  * Function to retrive all todos in the database.
  * @param limit Limit the amount of todos. Default: `20`
  * @param orderBy Set an order for the result. Default: `["id desc"]`
+ * @returns Returns Promise to handle loading and resolvs as defined.
  */
 export function getAll(
   limit: number = 20,
@@ -127,6 +128,7 @@ export function getById(id: number): Promise<{ todo: ITodo | null }> {
  * Adds new todo items to database and returns the inserted item.
  * @param text Todo item text.
  * @param isDone Todo state.
+ * @returns Returns Promise to handle loading and resolvs as defined.
  */
 export function add(
   text: string,
@@ -141,5 +143,55 @@ export function add(
         resolve(getById(results.insertId));
       }
     );
+  });
+}
+
+/**
+ * Update `text` and/or `isDone` state of the todo item by `ìd`.
+ * @param id Used to get todo item by `id`.
+ * @param text New text.
+ * @param isDone Todo state.
+ * @returns Returns Promise to handle loading and resolvs as defined.
+ */
+export function updateById(
+  id: number,
+  text: string,
+  isDone: boolean = false
+): Promise<{ todo: ITodo | null }> {
+  return new Promise<{ todo: ITodo | null }>((resolve, reject) => {
+    getById(id).then((result: { todo: null | ITodo }) => {
+      if (result.todo === null) {
+        resolve(null);
+      }
+      dbc.query(
+        `UPDATE ${table} SET text = ?, done = ? WHERE id = ?`,
+        [text.trim(), isDone, id],
+        (error: mysql.MysqlError) => {
+          if (error) return reject(error);
+          resolve(getById(id));
+        }
+      );
+    });
+  });
+}
+
+/**
+ * Delete todo item by the `id`.
+ * @param id Used to get todo item by `id`.
+ */
+export function deleteById(id: number): Promise<{ todo: ITodo | null }> {
+  return new Promise<{ todo: ITodo | null }>((resolve, reject) => {
+    getById(id).then((result: { todo: null | ITodo }) => {
+      if (result.todo === null) {
+        resolve(null);
+      }
+      dbc.query(
+        `DELETE FROM ${table} WHERE id = ${result.todo.id}`,
+        (error: mysql.MysqlError) => {
+          if (error) return reject(error);
+          resolve({ todo: result.todo });
+        }
+      );
+    });
   });
 }
