@@ -20,13 +20,7 @@ import IResponse from "../interfaces/response";
  */
 const router: express.IRouter = express.Router();
 
-/**
- * Mock array to simulate database mutations.
- * @remark The array contains 1 item per default.
- */
-const todos: ITodo[] = [{ id: 1, text: "Test", isDone: false, url: "" }];
-
-router.get("/", authenticate, (req: express.Request, res: express.Response) => {
+router.get("/", (req: express.Request, res: express.Response) => {
   let limit: number = Number(req.query.limit);
   let orderBy: string[] = String(req.query.orderBy).split(",");
 
@@ -62,7 +56,6 @@ router.get("/", authenticate, (req: express.Request, res: express.Response) => {
 
 router.get(
   "/:id",
-  authenticate,
   (req: express.Request, res: express.Response) => {
     const id: number = Number(req.params.id);
 
