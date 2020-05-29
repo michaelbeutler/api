@@ -49,7 +49,6 @@ jobs:
       - name: Test
         run: yarn test --watchAll=false
         env:
-          CI: true
           JWT_TOKEN: secret
           MYSQL_HOST: mysql-dev
           MYSQL_USER: root
