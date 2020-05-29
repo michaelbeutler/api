@@ -24,6 +24,7 @@ If you want to test your changes localy for the first time run `yarn test`. This
 | MYSQL\_DATABASE    | MySQL database               | string   | \-          | **no**       |
 | MYSQL\_USER        | MySQL user                   | string   | \-          | **no**       |
 | MYSQL\_PASSWORD    | MySQL password               | string   | \-          | **no**       |
+| ROOT\_URI          | Base API url                 | string   | \-          | **no**       |
 
 ## <a name="endpoint"></a>Endpoint
 Each api response is typed strict and uses the `IResponse` interface.
