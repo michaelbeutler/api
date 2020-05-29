@@ -88,9 +88,10 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_src_models_todo_.html#add" class="tsd-kind-icon">add</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_src_models_todo_.html#deletebyid" class="tsd-kind-icon">delete<wbr>ById</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_src_models_todo_.html#getall" class="tsd-kind-icon">get<wbr>All</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_src_models_todo_.html#getbyid" class="tsd-kind-icon">get<wbr>ById</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_src_models_todo_.html#update" class="tsd-kind-icon">update</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_src_models_todo_.html#updatebyid" class="tsd-kind-icon">update<wbr>ById</a></li>
 							</ul>
 						</section>
 					</div>
@@ -104,7 +105,7 @@
 					<div class="tsd-signature tsd-kind-icon">max<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 100</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/MichiBeutler/api/blob/7d4b60b/src/models/todo.ts#L12">src/models/todo.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/MichiBeutler/api/blob/a35787c/src/models/todo.ts#L12">src/models/todo.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -119,7 +120,7 @@
 					<div class="tsd-signature tsd-kind-icon">schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [&quot;id&quot;,&quot;id desc&quot;,&quot;text&quot;,&quot;text desc&quot;,&quot;done&quot;,&quot;done desc&quot;,]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/MichiBeutler/api/blob/7d4b60b/src/models/todo.ts#L17">src/models/todo.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/MichiBeutler/api/blob/a35787c/src/models/todo.ts#L17">src/models/todo.ts:17</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -134,7 +135,7 @@
 					<div class="tsd-signature tsd-kind-icon">table<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;todos&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/MichiBeutler/api/blob/7d4b60b/src/models/todo.ts#L7">src/models/todo.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/MichiBeutler/api/blob/a35787c/src/models/todo.ts#L7">src/models/todo.ts:7</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -156,7 +157,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/MichiBeutler/api/blob/7d4b60b/src/models/todo.ts#L133">src/models/todo.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/MichiBeutler/api/blob/a35787c/src/models/todo.ts#L133">src/models/todo.ts:133</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -185,6 +186,37 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="deletebyid" class="tsd-anchor"></a>
+					<h3>delete<wbr>ById</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">delete<wbr>ById<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>todo<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_models_todo_.itodo.html" class="tsd-signature-type">ITodo</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/MichiBeutler/api/blob/a35787c/src/models/todo.ts#L182">src/models/todo.ts:182</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Delete todo item by the <code>id</code>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>id: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Used to get todo item by <code>id</code>.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>todo<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_models_todo_.itodo.html" class="tsd-signature-type">ITodo</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="getall" class="tsd-anchor"></a>
 					<h3>get<wbr>All</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
@@ -194,7 +226,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/MichiBeutler/api/blob/7d4b60b/src/models/todo.ts#L43">src/models/todo.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/MichiBeutler/api/blob/a35787c/src/models/todo.ts#L43">src/models/todo.ts:43</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -232,7 +264,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/MichiBeutler/api/blob/7d4b60b/src/models/todo.ts#L105">src/models/todo.ts:105</a></li>
+									<li>Defined in <a href="https://github.com/MichiBeutler/api/blob/a35787c/src/models/todo.ts#L105">src/models/todo.ts:105</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -255,19 +287,22 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="update" class="tsd-anchor"></a>
-					<h3>update</h3>
+					<a name="updatebyid" class="tsd-anchor"></a>
+					<h3>update<wbr>ById</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, text<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, isDone<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>todo<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_models_todo_.itodo.html" class="tsd-signature-type">ITodo</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">update<wbr>ById<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, text<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, isDone<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>todo<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_models_todo_.itodo.html" class="tsd-signature-type">ITodo</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/MichiBeutler/api/blob/7d4b60b/src/models/todo.ts#L156">src/models/todo.ts:156</a></li>
+									<li>Defined in <a href="https://github.com/MichiBeutler/api/blob/a35787c/src/models/todo.ts#L156">src/models/todo.ts:156</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Update <code>text</code> and/or <code>isDone</code> state of the todo item by <code>ìd</code>.</p>
+								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -344,13 +379,16 @@
 						<a href="_src_models_todo_.html#add" class="tsd-kind-icon">add</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_src_models_todo_.html#deletebyid" class="tsd-kind-icon">delete<wbr>ById</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_src_models_todo_.html#getall" class="tsd-kind-icon">get<wbr>All</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_src_models_todo_.html#getbyid" class="tsd-kind-icon">get<wbr>ById</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_src_models_todo_.html#update" class="tsd-kind-icon">update</a>
+						<a href="_src_models_todo_.html#updatebyid" class="tsd-kind-icon">update<wbr>ById</a>
 					</li>
 				</ul>
 			</nav>
