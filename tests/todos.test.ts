@@ -53,12 +53,6 @@ describe(`tests for /${route}`, () => {
   });
 
   // GET
-  it("should return a 401 response for GET / if no token is provided", async (done) => {
-    const res: supertest.Response = await request.get(`/${route}`);
-    expect(res.status).toBe(401);
-    done();
-  });
-
   it("should return a 200 response for GET /", async (done) => {
     const res: supertest.Response = await request
       .get(`/${route}`)

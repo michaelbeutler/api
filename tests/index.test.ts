@@ -2,7 +2,9 @@ import app from "../src/index";
 import supertest from "supertest";
 import { dbc } from "../src/index";
 
-describe("app", () => {
+const route: string = "index";
+
+describe(`tests for /${route}`, () => {
   let request: supertest.SuperTest<supertest.Test>;
   let server;
 
